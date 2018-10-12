@@ -44,6 +44,7 @@ contract Excalibur is SafeMath {
 
   address public admin;
   bool public tradeState;
+  string public message;
 
   mapping (address => mapping (address => uint)) public tokens; // mapping of token addresses to mapping of account balances (token=0 means Ether)
   mapping (address => mapping (bytes32 => bool)) public orders; // mapping of user accounts to mapping of order hashes to booleans (true = submitted by user, equivalent to offchain signature)
@@ -78,6 +79,10 @@ contract Excalibur is SafeMath {
 
   function transferOwnership(address newAdmin) onlyAdmin {
     admin = newAdmin;
+  }
+
+  function systemMessage(string msg) onlyAdmin {
+    message = msg;
   }
 
   function changeTradeState(bool state_) onlyAdmin {
